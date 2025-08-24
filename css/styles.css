@@ -168,3 +168,8 @@ button#calcular:hover {
   text-align: center;
   min-width: 250px;
 }
+
+#historial-lista p {
+  text-align: center;
+  width: 100%;
+}

@@ -1,6 +1,7 @@
 
 const historialLista = document.getElementById('historial-lista')
 const historial = JSON.parse(localStorage.getItem('historial')) || []
+const borrarHistorial = document.getElementById('boton-limpiar')
 
 //verificar si el historial sta vacio
 if (historial.length === 0) {
@@ -19,3 +20,10 @@ if (historial.length === 0) {
 //agregar la lista al dom 
     historialLista.appendChild(lista)
 }
+
+//borrar el historial
+borrarHistorial.addEventListener('click', () => {
+    localStorage.removeItem('historial')
+    historialLista.innerHTML = '<p>No hay nada que mostrar.</p>'
+}
+)

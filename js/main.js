@@ -11,23 +11,11 @@ fetch("data/tasas.json")
         console.log("Carga de tasas completada")})
 
 
-//Tipos de tasas
-const tipoDeTasas = [
-    {id: 1,
-    moneda: "Dolar Estadounidense",
-    simbolo: "U$D"
-    },
-    {
-    id:2,
-    moneda: "Euro",
-    simbolo:"€"
-    },
-    {
-    id: 3,
-    moneda: "Libra Esterlina",
-    simbolo: "£"
-    }
-]
+const monedaInfo = {
+    usd: { nombre: "Dólar Estadounidense", simbolo: "U$D" },
+    eur: { nombre: "Euro", simbolo: "€" },
+    lib: { nombre: "Libra Esterlina", simbolo: "£" }
+}
 
 
 //DOM
@@ -36,17 +24,17 @@ let calcular = document.getElementById("calcular")
 let selectMoneda = document.getElementById("moneda")
 let banner = document.getElementById("banner")
 
-//Recorrer el array.
-function renderTasas(tipoDeTasas) {
-    const lista =document.createElement("ul")
-    tipoDeTasas.forEach(tasa => {
+//lista de monedas
+function renderTasas() {
+    const lista = document.createElement("ul")
+    for (const codigo in monedaInfo) {
         const divisas = document.createElement("li")
-        divisas.innerHTML = `<h4>${tasa.moneda} ${tasa.simbolo}.</h4>`
+        divisas.innerHTML = `<h4>${monedaInfo[codigo].nombre} ${monedaInfo[codigo].simbolo}.</h4>`
         lista.appendChild(divisas)
-        banner.appendChild(lista)
-    })
+    }
+    banner.appendChild(lista)
 }
-renderTasas(tipoDeTasas)
+renderTasas()
 
 
 //Onclick
@@ -57,8 +45,8 @@ calcular.onclick = () => {
             throw new Error("Por favor, ingresá un monto válido")
         }
         const moneda = selectMoneda.value
-        const resultado = (input.value * tasas[moneda])
-        const simbolo = tipoDeTasas.find(t => t.id === selectMoneda.selectedIndex + 1).simbolo
+        const resultado = (input.value * tasas[moneda]).toFixed(2)
+        const simbolo = monedaInfo[moneda].simbolo
 
     Swal.fire({
         title: '¡Listo!',
